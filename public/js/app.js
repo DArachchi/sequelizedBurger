@@ -36,5 +36,18 @@ $(document).ready(function() {
         });
     });
 
+    $(document).on("submit", "#burgerForm", function(){
+        event.preventDefault();
+        var newBurger = $("input.new-burger");
+        var burger = {
+            burger_name: newBurger,
+            devoured: false
+        }
+    
+        $.post("/api/burgers", burger, function() {
+            window.location.href = "/";
+        });
+        newBurger.val("");
+    });
     getBurgers();
 });
