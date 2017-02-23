@@ -11,7 +11,7 @@ var db = require("../models");
 module.exports = function(app) {
 
   // GET route for getting all of the burgers
-  app.get("/", function(req, res) {
+  app.get("/api/burgers", function(req, res) {
     // findAll returns all entries for a table when used with no options
     db.Burger.findAll({}).then(function(dbBurger) {
       // We have access to the burgers as an argument inside of the callback function
@@ -36,15 +36,14 @@ module.exports = function(app) {
   });
 
   // PUT route for updating burgers. We can get the updated burger data from req.body
-  app.put("/api/burgers", function(req, res) {
+  app.put("/api/burgers/:id", function(req, res) {
     // Update takes in two arguments, an object describing the properties we want to update,
     // and another "where" object describing the burgers we want to update
     db.Burger.update({
-      burger_name: req.body.burger_name,
-      devoured: req.body.devoured
+      devoured: true
     }, {
       where: {
-        id: req.body.id
+        id: req.params.id
       }
     })
     .then(function(dbBurger) {
